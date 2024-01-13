@@ -22,6 +22,7 @@ type DataBaseConf struct {
 	ConnMaxLifeTime time.Duration `json:",optional,connMaxLifeTime"`
 	Parameters      string        `json:",optional,parameters"`
 	SSLMode         string        `json:",optional,sslMode"`
+	Debug           bool          `json:",optional,debug"`
 }
 
 func (c DataBaseConf) GetDSN() string {

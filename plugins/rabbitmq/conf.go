@@ -9,4 +9,11 @@ type (
 		Port     string `json:",optional"`
 		Vhost    string `json:",optional"`
 	}
+
+	QueueDeclare struct {
+		Name       string `json:",optional"`
+		Durable    bool   `json:",optional"`
+		AutoDelete bool   `json:",optional"`
+		Exchange   string `json:",optional"`
+	}
 )

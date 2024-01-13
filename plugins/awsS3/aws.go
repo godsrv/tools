@@ -9,6 +9,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var (
+	Client *s3.Client
+)
+
 // @author: lipper
 // @object: *s3.Client
 // @function: NewS3Client
@@ -31,7 +35,7 @@ func NewS3Client(ctx context.Context, conf AwsConf) *s3.Client {
 		logrus.Panicf("init s3 client with config: %+v err: %v", conf, err)
 	}
 
-	Client := s3.NewFromConfig(cfg, func(options *s3.Options) {
+	Client = s3.NewFromConfig(cfg, func(options *s3.Options) {
 		options.UsePathStyle = true
 	})
 

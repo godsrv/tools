@@ -1,7 +1,12 @@
 package xgorm
 
 import (
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
+)
+
+var (
+	Client *gorm.DB
 )
 
 // @author: lipper
@@ -9,13 +14,21 @@ import (
 // @description: 实例orm
 // @return: *gorm.DB
 func NewGorm(conf DataBaseConf) *gorm.DB {
+	var err error
 	// 获取dsn
-	db, err := conf.GetDB()
+	Client, err = conf.GetDB()
 	if err != nil {
 		panic(err)
 	}
-	db.InstanceSet("gorm:table_options", "ENGINE=InnoDB")
-	sqlDB, _ := db.DB()
+
+	if conf.Debug {
+		Client = Client.Debug()
+	}
+
+	sqlDB, err := Client.DB()
+	if err != nil {
+		logrus.Panicf("get database/sql db err: %v", err)
+	}
 
 	if conf.MaxIdleConn > 0 {
 		sqlDB.SetMaxIdleConns(conf.MaxIdleConn)
@@ -33,5 +46,5 @@ func NewGorm(conf DataBaseConf) *gorm.DB {
 		sqlDB.SetConnMaxLifetime(conf.ConnMaxLifeTime)
 	}
 
-	return db
+	return Client
 }

@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+var (
+	Client *elastic.Client
+)
+
 // @author: lipper
 // @object: *elastic.Client
 // @function: NewEsClient
@@ -16,6 +20,7 @@ import (
 // @return: *elastic.Client
 func NewEsClient(conf EsConf) *elastic.Client {
 	var (
+		err       error
 		version   string
 		settings  = make([]elastic.ClientOptionFunc, 0)
 		endpoints = make([]string, 0)
@@ -69,7 +74,7 @@ func NewEsClient(conf EsConf) *elastic.Client {
 		settings = append(settings, elastic.SetHealthcheckTimeout(5*time.Second))
 	}
 
-	Client, err := elastic.NewClient(settings...)
+	Client, err = elastic.NewClient(settings...)
 	if err != nil {
 		logrus.Panicf("init es client err: %v", err)
 	}
