@@ -19,12 +19,12 @@ var (
 type (
 	// A RedisConf is a redis config.
 	RedisConf struct {
-		Host        string
-		DB          int           `json:",default=1"`
-		Password    string        `json:",optional"`
-		Port        int           `json:",optional"`
-		Tls         bool          `json:",optional"`
-		PingTimeout time.Duration `json:",default=1s"`
+		Host        string        `json:"host"`
+		DB          int           `json:"db,default=1"`
+		Password    string        `json:"password,optional"`
+		Port        int           `json:"port,optional"`
+		Tls         bool          `json:"tls,optional"`
+		PingTimeout time.Duration `json:"ping_timeout,default=1s"`
 	}
 )
 

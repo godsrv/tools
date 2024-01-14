@@ -6,12 +6,12 @@ type UserPassAuth struct {
 }
 
 type EsConf struct {
-	Endpoints         []string
-	Sniff             bool
-	Gzip              bool
-	EnableTrace       bool
-	EnableHealthCheck bool
-	Auth              bool
-	UserPass          UserPassAuth
-	Https             bool
+	Endpoints         []string     `json:"endpoints"`
+	Sniff             bool         `json:"sniff"`
+	Gzip              bool         `json:"gzip"`
+	EnableTrace       bool         `json:"enableTrace"`
+	EnableHealthCheck bool         `json:"enableHealthCheck"`
+	Auth              bool         `json:"auth"`
+	UserPass          UserPassAuth `json:"user_pass"`
+	Https             bool         `json:"https"`
 }
