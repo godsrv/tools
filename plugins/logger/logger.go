@@ -12,6 +12,8 @@ var Zap = new(_zap)
 
 type _zap struct{}
 
+var Client *zap.Logger
+
 // new logger实列
 func NewZap(conf ZapConf) *zap.Logger {
 	// 获取cores
@@ -24,8 +26,8 @@ func NewZap(conf ZapConf) *zap.Logger {
 	// 获取日志写入位置
 	writeSyncer := Zap.getWriteSyncer(conf.Director, conf.MaxSize, conf.MaxBackup, conf.MaxAge)
 	core := zapcore.NewCore(encoder, writeSyncer, l)
-	logger := zap.New(core, zap.AddCaller())
-	return logger
+	Client = zap.New(core, zap.AddCaller())
+	return Client
 }
 
 // 日志分割
